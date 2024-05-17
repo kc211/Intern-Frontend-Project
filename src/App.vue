@@ -1,23 +1,45 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+ 
+  <v-app>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <v-toolbar density="default">
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <v-toolbar-title>
+        <v-btn to="/">
+          EBS
+          </v-btn>
+      </v-toolbar-title>
 
-  <RouterView />
+      <v-spacer></v-spacer>
+
+      <router-link :to="{name:'about'}">
+
+        <v-btn icon>
+          <v-icon>mdi-information-outline</v-icon>
+        </v-btn>
+      </router-link>
+
+      <v-btn variant="outlined" color="red" size="small" class="mx-2" to="/register">
+        Register
+        </v-btn>
+
+      <router-link :to="{name:'login'}">
+
+        <v-btn variant="outlined" color="red" size="small" class="mx-2">
+          Login
+        </v-btn>
+      </router-link>
+    </v-toolbar>
+    <v-main>
+
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
