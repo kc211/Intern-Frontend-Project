@@ -10,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <v-btn to="/">
+        <v-btn  to="/">
           EBS
           </v-btn>
       </v-toolbar-title>

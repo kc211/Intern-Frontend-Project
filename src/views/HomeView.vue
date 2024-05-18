@@ -3,10 +3,8 @@ import LoginView from './LoginView.vue';
 
 </script>
 
- <template>
-  
-    
-
-    <h1>Hello</h1>
-  
+<template>
+  <div class="container">
+    <h2>hello</h2>
+  </div>
 </template>
