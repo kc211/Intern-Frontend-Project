@@ -1,22 +1,29 @@
 <script setup>
+import { ref } from 'vue';
 
+const images=ref([
+  { src:"https://assets-in.bmscdn.com/promotions/cms/creatives/1715775955272_g4ewtnj67.jpg"},
+  {  src:"https://assets-in.bmscdn.com/promotions/cms/creatives/1706383776906_web.jpg"},
+  { src:"https://assets-in.bmscdn.com/promotions/cms/creatives/1715325550925_asiancinemawebbanner.jpg"}
+])
 </script>
 
 <template>
-    <v-carousel hide-delimiters>
+    <v-carousel 
+    hide-delimiters
+    height="300px"
+    class="pa-2"
+    cycle
+    >
   <v-carousel-item
-    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    cover
-  ></v-carousel-item>
+   
+      v-for="item in images" :key="item"
+      :src="item.src"
 
-  <v-carousel-item
-    src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
-    cover
-  ></v-carousel-item>
-
-  <v-carousel-item
-    src="../assets/OG-PK-02092023-1.webp"
     
   ></v-carousel-item>
+
+
 </v-carousel>
 </template>
+
