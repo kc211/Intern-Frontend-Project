@@ -1,5 +1,17 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref,computed } from 'vue';
+import { useTheme } from 'vuetify/lib/framework.mjs';
+
+const ctheme= ref(false)
+const theme= useTheme();
+
+const changeTheme=()=>{
+  console.log(ctheme.value);
+  
+  ctheme.value=!ctheme.value
+  theme.global.name.value=ctheme.value ?"dark":"light"
+}
 </script>
 
 <template>
@@ -19,18 +31,23 @@ import { RouterLink, RouterView } from 'vue-router'
 
       <router-link :to="{name:'about'}">
 
-        <v-btn icon>
-          <v-icon>mdi-information-outline</v-icon>
+        <v-btn >
+          <v-icon icon="mdi-information-outline" size="large"></v-icon>
         </v-btn>
       </router-link>
 
-      <v-btn variant="outlined" color="red" size="small" class="mx-2" to="/register">
+      <v-btn @click="changeTheme"  >
+
+          <v-icon :icon="ctheme? 'mdi-weather-sunny': 'mdi-weather-night'"></v-icon>
+        </v-btn>
+
+      <v-btn :variant="ctheme ?'elevated':'outlined'" color="red" size="small" class="mx-2" to="/register">
         Register
         </v-btn>
 
       <router-link :to="{name:'login'}">
 
-        <v-btn variant="outlined" color="red" size="small" class="mx-2">
+        <v-btn  :variant="ctheme ?'elevated':'outlined'" color="red" size="small" class="mx-2">
           Login
         </v-btn>
       </router-link>
