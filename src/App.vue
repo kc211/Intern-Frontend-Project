@@ -12,6 +12,20 @@ const changeTheme=()=>{
   ctheme.value=!ctheme.value
   theme.global.name.value=ctheme.value ?"dark":"light"
 }
+
+
+import image1 from "./assets/image1.png";
+import image2 from "./assets/image2.png";
+import image3 from "./assets/image3.png";
+import image4 from "./assets/image4.png";
+
+const Movies = ref([
+  { src: image1 , title:"The Garifield Movie",id:1},
+  { src: image2, title:"Kingdom of the Planet of the Apes",id:2 },
+  { src: image3 , title:"Srikanth",id:3},
+  { src: image4,title:"Furiosa: A Mad Max saga",id:4 },
+]);
+
 </script>
 
 <template>
@@ -54,7 +68,7 @@ const changeTheme=()=>{
     </v-toolbar>
     <v-main>
 
-      <RouterView />
+      <RouterView :Movies="Movies"/>
     </v-main>
   </v-app>
 </template>
