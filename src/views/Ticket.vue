@@ -10,46 +10,6 @@ const props = defineProps({
 
 
 <template>
-  <!-- <h1>Hello ebs</h1> -->
-
-  <!-- <v-container>
-  <v-card color="black" width="400px" height="100vh">
-
-    <div v-for="movie in Movies" :key="movie">
-    <div v-if="movie.id == $route.params.id"> -->
-  <!-- <h2>
-        {{ movie.title }}
-      </h2>
-      <h3>
-        {{ movie.desc }}
-      </h3>
-      <h4>
-        {{ movie.genre }}
-      </h4> -->
-
-  <!-- <v-card
-          class="mx-auto"
-          color="surface-variant"
-          image="https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg"
-          max-width="340"
-          >
-          <v-card-item>
-              <v-card-title>
-                  {{ movie.title }}
-                </v-card-title>
-                <v-card-subtitle>
-                    {{ movie.genre }}
-                </v-card-subtitle>
-            </v-card-item>
-            <v-card-text>
-                {{ movie.desc }}
-        </v-card-text>
-    </v-card>
-</div>
-</div>
-</v-card>   
-<v-card></v-card>
-</v-container> -->
   <div v-for="movie in Movies" :key="movie">
     <div v-if="movie.id == $route.params.id">
       <v-row no-gutters>
