@@ -50,6 +50,7 @@ const handleBookingTickets=(id)=>{
             <v-btn variant="elevated" 
             rounded="sm" 
             color="red" 
+            
             @click="handleBookingTickets(imgp.id)"> Book Tickets </v-btn>
             
           </v-card-actions>
