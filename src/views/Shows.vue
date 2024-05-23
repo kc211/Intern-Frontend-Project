@@ -1,57 +1,18 @@
 <script setup>
-import { ref, defineProps } from "vue";
-const props = defineProps({
-  Movies: {
-    type: Array,
-    required: true,
-  },
+import { ref, defineProps, onMounted } from "vue";
+let Movies = ref([]);
+let theatres = ref([]);
+
+onMounted(() => {
+  fetch("http://localhost:3000/Movies")
+    .then((res) => res.json())
+    .then((data) => (Movies.value = data))
+    .catch((e) => console.log(e.message));
+  fetch("http://localhost:3000/theatres")
+    .then((res) => res.json())
+    .then((data) => (theatres.value = data))
+    .catch((e) => console.log(e.message));
 });
-
-const theatres = ref([
-  {
-    theatre_name: "AAA Cinemas: Ameerpet",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "AMB Cinemas: Gachibowli",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian Cinemart: RC Puram",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian Cineplanet Multiplex: Kompally",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian CineSquare Multiplex: Uppal",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian M Cube Mall: Attapur",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian Mukta Cinemas A2: MJR Square, Narapally",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Asian Sha & Shahensha: Chintal",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "Cinepolis: Lulu Mall, Hyderabad",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-  {
-    theatre_name: "INOX: GSM Mall, Hyderabad",
-    timings: { 1: "11:00 AM", 2: "2:30 PM", 3: "6:30 PM", 4: "10:00 PM" },
-  },
-
-  
-
-]);
 </script>
 
 <template>
@@ -59,27 +20,32 @@ const theatres = ref([
     <div v-if="movie.id == $route.params.id">
       <v-row no-gutters>
         <v-col :cols="4">
-          <v-card id="about_movie" style=" color:white" >
-            <v-img :src="movie.src"  cover gradient="to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)">
-              <div style="margin-top: 5px;padding-top:16px; text-wrap:balance">
-
+          <v-card id="about_movie" style="color: black" color="green">
+            <v-img
+              :src="movie.src"
+              cover
+              gradient="to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)"
+            >
+              <div
+                style="margin-top: 5px; padding-top: 16px; text-wrap: balance"
+              >
                 <v-card-title style="text-wrap: balance">
                   <h2>
                     {{ movie.title }}
                   </h2>
                 </v-card-title>
-                <v-card-subtitle >
+                <v-card-subtitle>
                   <v-chip class="ma-1" variant="outlined">{{
                     movie.rating
                   }}</v-chip>
-                <v-chip variant="outlined" class="ma-1">
-                  {{ movie.genre }}
-                </v-chip>
-              </v-card-subtitle>
-              <v-card-text >
-                {{ movie.desc }}
-              </v-card-text>
-            </div>
+                  <v-chip variant="outlined" class="ma-1">
+                    {{ movie.genre }}
+                  </v-chip>
+                </v-card-subtitle>
+                <v-card-text>
+                  {{ movie.desc }}
+                </v-card-text>
+              </div>
             </v-img>
           </v-card>
         </v-col>
@@ -143,7 +109,7 @@ const theatres = ref([
 <style scoped>
 #about_movie {
   height: 100vh;
-  font-family:Verdana, Geneva, Tahoma, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #date {
   height: 15vh;
@@ -174,5 +140,4 @@ const theatres = ref([
 .time {
   margin: 5px;
 }
-
 </style>

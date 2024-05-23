@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import Tickets from '@/views/Ticket.vue'
+import Shows from '@/views/Shows.vue'
 import Seats from '@/views/Seats.vue'
 
 const router = createRouter({
@@ -32,12 +33,12 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path:'/tickets/:id',
-      name:'tickets',
-      component:Tickets
+      path:'/shows/:id',
+      name:'shows',
+      component:Shows
     },
     {
-      path:'/seats',
+      path:'/shows/seats/:id',
       name:'seats',
       component:Seats
     }

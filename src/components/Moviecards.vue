@@ -1,30 +1,25 @@
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted,} from "vue";
+import { useRouter } from "vue-router";
 const model = ref(null);
-
-import { defineProps } from "vue";
-
-const props=defineProps({
-  Movies:{
-    type:Array,
-    required:true
-  }
+let Movies=ref([])
+onMounted(()=>{
+  fetch('http://localhost:3000/Movies').then(res=>res.json()).then(data=>Movies.value=data)
+  .catch(e=>console.log(e.message)
+  )
 })
 
-const emits=defineEmits(['BookingTickets'])
+const router= useRouter();
 const handleBookingTickets=(id)=>{
-  console.log(id);
-  
-  emits('BookingTickets',id);
-}
+  router.push({name:'shows',params:{id}})
+  }
 </script>
 
 
 
 <template>
  
-
   <v-slide-group center-active show-arrows class="ma-6 pa-4 ">
     <v-slide-group-item
       v-for="imgp in Movies"
