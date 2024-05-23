@@ -1,0 +1,37 @@
+{
+ "Movies" :[
+        {
+    "src":"./src/assets/image1.png",
+    "title": "The Garifield Movie",
+    "id": 1,
+    "desc": "The new 'Garfield movie', set for release in 2024, is an animated film featuring Chris Pratt as the voice of Garfield and Samuel L. Jackson voicing a new character, Vic, who is Garfield's father. The movie is expected to follow the classic themes of Garfield's adventures and humorous antics, while also introducing new elements and characters to expand on the beloved comic strip's universe. The film aims to appeal to both long-time fans of the comic strip and new audiences.",
+    "genre": "comedy",
+    "rating": "U/A"
+        },
+        {
+    "src": "image2",
+    "title": "Kingdom of the Planet of the Apes",
+    "id": 2,
+    "desc": "'Kingdom of the Planet of the Apes' is a science fiction action film recently released in May 2024 (the information you provided earlier). It serves as a standalone sequel to 'War for the Planet of the Apes' (2017), making it the tenth film and fourth installment in the overall 'Planet of the Apes' reboot franchise.             The cast features Owen Teague in the lead role as Noa, alongside Freya Allan and established actors like Kevin Durand, Peter Macon, and William H. Macy.",
+
+    "genre": "action",
+    "rating": "R"
+        },
+        {
+    "src": "image3",
+    "title": "Srikanth",
+    "id": 3,
+    "desc": "'Srikanth' is a biographical film based on the life of Srikanth Bolla, a visually-impaired industrialist and founder of Bollant Industries. Released on May 10, 2024, it stars Rajkummar Rao in the titular role. The movie chronicles Srikanth's journey, showcasing his struggles and triumphs despite his disability. Jyothika portrays his guardian, while Alaya F and Sharad Kelkar play supporting roles.",
+    "genre": "Autobiography",
+    "rating": "U"
+        },
+        {
+    "src": "image4",
+    "title": "Furiosa: A Mad Max saga",
+    "id": 4,
+    "desc": "Furiosa: A Mad Max Saga, a prequel to the action-packed Mad Max: Fury Road (2015), recently hit theaters in May 2024.  This film dives into the backstory of the iconic character Imperator Furiosa, played by Anya Taylor-Joy taking over from Charlize Theron.  The high-octane adventure follows a younger Furiosa as she's snatched from her home and falls into the hands of a ruthless warlord.  Her fight for survival and eventual quest to return home fuels the thrilling narrative.  Alongside Anya Taylor-Joy, Chris Hemsworth portrays a mysterious new character whose role in Furiosa's journey is yet to be fully revealed.",
+    "genre": "action",
+    "rating": "A"
+        }
+    ]
+}
