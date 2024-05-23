@@ -1,8 +1,8 @@
 <script setup>
-import { ref, defineProps, onMounted } from "vue";
+import { ref,  onMounted } from "vue";
 let Movies = ref([]);
 let theatres = ref([]);
-
+let dates=ref([]);
 onMounted(() => {
   fetch("http://localhost:3000/Movies")
     .then((res) => res.json())
@@ -12,7 +12,21 @@ onMounted(() => {
     .then((res) => res.json())
     .then((data) => (theatres.value = data))
     .catch((e) => console.log(e.message));
+    generateDates();
 });
+
+
+function generateDates() {
+  const today = new Date();
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    const date = new Date(today.getFullYear(), today.getMonth(), i);
+    dates.value.push(date.toDateString());
+  }
+}
+console.log(dates);
+
 </script>
 
 <template>
@@ -55,16 +69,17 @@ onMounted(() => {
             <v-card-subtitle class="pa-0" opacity="15">
               <v-slide-group show-arrows class="dates ma-0" size="xs">
                 <v-slide-group-item
-                  v-for="n in 25"
-                  :key="n"
+                v-for="(date, index) in dates" :key="index"
                   v-slot="{ isSelected, toggle }"
                 >
                   <v-btn
                     :color="isSelected ? 'primary' : undefined"
-                    class="ma-1"
+                    class="ma-1 pa-0"
                     @click="toggle"
+                  
+                    min-width="30px"
                   >
-                    {{ n }}
+                    {{ date }}
                   </v-btn>
                 </v-slide-group-item>
               </v-slide-group>
