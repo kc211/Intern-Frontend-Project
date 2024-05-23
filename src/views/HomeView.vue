@@ -13,19 +13,13 @@ const props= defineProps({
 })
 
 const router=useRouter();
-// const receivedId=ref('');
-// const theid;
 const handleBooking=(id)=>{
-  // receivedId.value=id;
-  // theid=receivedId.value
+
   router.push({name:'tickets',params:{id}})
-  // console.log(receivedId);
-}
-// const theid=receivedId.value
-</script>
+  }
+  </script>
 
 <template>
       <Carousels/>
       <Moviecards :Movies="Movies"  @BookingTickets="handleBooking"/>
-      <!-- <Moviecards :Movies="Movies"  />   -->
 </template>
