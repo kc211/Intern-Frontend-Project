@@ -1,8 +1,27 @@
 <script setup>
-import { ref,  onMounted } from "vue";
+import { ref, onMounted } from "vue";
 let Movies = ref([]);
 let theatres = ref([]);
-let dates=ref([]);
+let dates = ref([]);
+let currentDate = ref(null);
+let currentDay = ref(null);
+let currentMonth = ref(null);
+const Day_names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const Month_names = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 onMounted(() => {
   fetch("http://localhost:3000/Movies")
     .then((res) => res.json())
@@ -12,21 +31,34 @@ onMounted(() => {
     .then((res) => res.json())
     .then((data) => (theatres.value = data))
     .catch((e) => console.log(e.message));
-    generateDates();
-});
 
+  currentDate.value = new Date().getDate();
+  currentDay.value = Day_names[new Date().getDay()];
+  currentMonth.value = Month_names[new Date().getMonth()];
+  console.log(currentDate);
+
+  generateDates();
+});
 
 function generateDates() {
   const today = new Date();
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+  const daysInMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0
+  ).getDate();
 
-  for (let i = 1; i <= daysInMonth; i++) {
+  for (let i = today.getDate(); i <= daysInMonth; i++) {
     const date = new Date(today.getFullYear(), today.getMonth(), i);
-    dates.value.push(date.toDateString());
+
+    dates.value.push({
+      date: date.getDate(),
+      day: Day_names[date.getDay()],
+      month: Month_names[date.getMonth()],
+    });
   }
 }
 console.log(dates);
-
 </script>
 
 <template>
@@ -65,21 +97,24 @@ console.log(dates);
         </v-col>
         <v-col :cols="8">
           <v-card color="pink" id="date">
-            <v-card-title class="card_title">Select the date</v-card-title>
+            <v-card-title class="card_title d-flex mx-4 pa-0 h-1.5">
+              <h3 class="mx-1">{{ currentMonth }}</h3>
+              <h3 class="mx-1">{{ new Date().getFullYear() }}</h3>
+            </v-card-title>
             <v-card-subtitle class="pa-0" opacity="15">
               <v-slide-group show-arrows class="dates ma-0" size="xs">
                 <v-slide-group-item
-                v-for="(date, index) in dates" :key="index"
+                  v-for="(date, index) in dates"
+                  :key="index"
                   v-slot="{ isSelected, toggle }"
                 >
                   <v-btn
                     :color="isSelected ? 'primary' : undefined"
                     class="ma-1 pa-0"
                     @click="toggle"
-                  
-                    min-width="30px"
+                    min-width="40px"
                   >
-                    {{ date }}
+                    {{ date.date }}
                   </v-btn>
                 </v-slide-group-item>
               </v-slide-group>
@@ -144,6 +179,7 @@ console.log(dates);
 .card_title {
   padding-left: 20px;
   padding-bottom: 0px;
+  margin-right: 4px;
 }
 .theatre_selection {
   height: 50px;
