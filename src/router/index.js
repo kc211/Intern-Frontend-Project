@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import Tickets from '@/views/Ticket.vue'
 import Shows from '@/views/Shows.vue'
 import Seats from '@/views/Seats.vue'
 
