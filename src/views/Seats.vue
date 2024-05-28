@@ -1,7 +1,5 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
-
 let Movies = ref([]);
 onMounted(() => {
   fetch("http://localhost:3000/Movies")
@@ -30,7 +28,9 @@ let total_price = ref(0);
 const selectedTickets = ref([]);
 
 const handleClick = (i) => {
-  selected.value[i - 1] = !selected.value[i - 1];
+  // selected.value[i - 1] = !selected.value[i - 1];
+  console.log(selected.value[i-1]);
+  
   if (selected.value[i - 1]) {
     total_price.value += 177;
     selectedTickets.value.push(i);
@@ -44,7 +44,7 @@ const handleClick = (i) => {
 <template>
   <div v-for="movie in Movies" :key="movie">
     <div v-if="movie.id == $route.params.id">
-      <h2 class="movie-title">{{ movie.title }}</h2>
+      <h2 class="movie-title mt-2">{{ movie.title }}</h2>
       <v-container class="pa-5">
         <v-container class="pa-2">
           <v-row no-gutters class="flex-column">
@@ -70,8 +70,8 @@ const handleClick = (i) => {
 
                       v-model="selected[i - 1]"
                       hide-details
-                      :value="200"
-                      @click="handleClick(i)"
+                      :value="177"
+                      @change="handleClick(i)"
                       :color="selected[i - 1] ? 'blue' : undefined"
                     ></v-checkbox>
                   </v-col>
