@@ -1,5 +1,5 @@
 <script setup>
-import Carousels from '@/components/carousels.vue';
+import Carousels from '@/components/Carousels.vue';
 import Moviecards from '@/components/Moviecards.vue';
   </script>
 
