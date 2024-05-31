@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
-let Movies = ref([]);
-let theatres = ref([]);
-let dates = ref([]);
-let currentDate = ref(null);
-let currentDay = ref(null);
-let currentMonth = ref(null);
+const Movies = ref([]);
+const theatres = ref([]);
+const dates = ref([]);
+const currentDate = ref(undefined);
+const currentDay = ref(undefined);
+const currentMonth = ref(undefined);
 const Day_names = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const Month_names = [
   "Jan",
@@ -35,7 +35,6 @@ onMounted(() => {
   currentDate.value = new Date().getDate();
   currentDay.value = Day_names[new Date().getDay()];
   currentMonth.value = Month_names[new Date().getMonth()];
-  console.log(currentDate);
 
   generateDates();
 });
@@ -58,7 +57,6 @@ function generateDates() {
     });
   }
 }
-console.log(dates);
 </script>
 
 <template>

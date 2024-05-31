@@ -1,34 +1,28 @@
 <script setup>
 import { ref } from "vue";
-
+import  axios  from "axios";
 const form = ref({
   name: "",
   email: "",
-  password: "",
+  password_: "",
   confirm_password: "",
-  Phno: "",
+  Phone_number: "",
 });
 
 const showPassword = ref(false);
 const showCPassword = ref(false);
 const submit = () => {
-  alert(JSON.stringify(form.value));
+  const {name,email,password_,confirm_password,Phone_number}=form.value;
+  axios.post('http://localhost:8081/register',{name,email,password_,confirm_password,Phone_number})
+  .then(res=>console.log(res))
+  .catch(err=>console.log(err));
 };
 </script>
 
-
 <template>
   <v-container>
-    <v-row
-    justify="center"
-    >
-      <v-col
-      
-      cols="4"
-      
-      >
-        <!-- <div class="my-15"> -->
-
+    <v-row justify="center">
+      <v-col cols="4">
         <v-card elevation="16" class="pa-4 mx-auto" width="450">
           <v-card-title>Register Here</v-card-title>
           <v-card-item>
@@ -50,7 +44,7 @@ const submit = () => {
               ></v-text-field>
 
               <v-text-field
-                v-model="form.password"
+                v-model="form.password_"
                 label="password"
                 variant="solo"
                 prepend-inner-icon="mdi-key"
@@ -70,7 +64,7 @@ const submit = () => {
               ></v-text-field>
 
               <v-text-field
-                v-model="form.Phno"
+                v-model="form.Phone_number"
                 label="Phone Number"
                 variant="solo"
                 prepend-inner-icon="mdi-dialpad"
