@@ -1,31 +1,29 @@
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted,} from "vue";
+import { useRouter } from "vue-router";
 const model = ref(null);
+let Movies=ref([])
+onMounted(()=>{
+  fetch('http://localhost:3000/Movies').then(res=>res.json()).then(data=>Movies.value=data)
+  .catch(e=>console.log(e.message)
+  )
+})
 
-import image1 from "../assets/image1.png";
-import image2 from "../assets/image2.png";
-import image3 from "../assets/image3.png";
-import image4 from "../assets/image4.png";
-
-const imagepaths = ref([
-  { src: image1 },
-  { src: image2 },
-  { src: image3 },
-  { src: image4 },
-]);
+const router= useRouter();
+const handleBookingTickets=(id)=>{
+  router.push({name:'shows',params:{id}})
+  }
 </script>
 
 
 
 <template>
-  <!-- <v-sheet class="mx-auto" elevation="8" max-width="800"> -->
-  <!-- <v-row> -->
-
+ 
   <v-slide-group center-active show-arrows class="ma-6 pa-4 ">
     <v-slide-group-item
-      v-for="imagepath in imagepaths"
-      :key="imagepath"
+      v-for="imgp in Movies"
+      :key="imgp"
       v-slot="{ isSelected }"
     >
       <v-card
@@ -38,21 +36,24 @@ const imagepaths = ref([
         <v-img
           class="align-end text-white"
           height="250"
-          :src="imagepath.src"
+          :src="imgp.src"
           
         >  </v-img>
         <v-spacer>  </v-spacer>
         
           <v-card-actions class="btn" >
-            <v-btn variant="elevated" rounded="sm" color="red"> Book Tickets </v-btn>
+            <v-btn variant="elevated" 
+            rounded="sm" 
+            color="red" 
+            
+            @click="handleBookingTickets(imgp.id)"> Book Tickets </v-btn>
             
           </v-card-actions>
         
       </v-card>
     </v-slide-group-item>
   </v-slide-group>
-  <!-- </v-sheet> -->
-  <!-- </v-row> -->
+ 
 </template>
 
 <style scoped>

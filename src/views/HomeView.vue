@@ -1,15 +1,9 @@
 <script setup>
-import Carousels from '@/components/carousels.vue';
-import LoginView from './LoginView.vue';
+import Carousels from '@/components/Carousels.vue';
 import Moviecards from '@/components/Moviecards.vue';
-</script>
+  </script>
 
 <template>
-  <div class="carousels">
-
       <Carousels/>
-  </div>
-  <div class="cards">
-    <Moviecards/>
-  </div>
+      <Moviecards/>
 </template>
