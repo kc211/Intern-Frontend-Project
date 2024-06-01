@@ -2,18 +2,30 @@
 <script setup>
 import { ref, onMounted,} from "vue";
 import { useRouter } from "vue-router";
-const model = ref(null);
-let Movies=ref([])
+import axios from "axios";
+const model = ref(undefined);
+const Movies=ref([])
+
+const fetchMovies = async () => {
+  try {
+    const response = await axios.get("http://localhost:8081/");
+    Movies.value = response.data;
+    console.log(response.data);
+    
+  } catch (error) {
+    console.error("Failed to fetch movies:", error);
+  }
+};
+
 onMounted(()=>{
-  fetch('http://localhost:3000/Movies').then(res=>res.json()).then(data=>Movies.value=data)
-  .catch(e=>console.log(e.message)
-  )
+   fetchMovies();
 })
 
 const router= useRouter();
 const handleBookingTickets=(id)=>{
   router.push({name:'shows',params:{id}})
   }
+
 </script>
 
 
@@ -33,10 +45,10 @@ const handleBookingTickets=(id)=>{
         width="300"
         
       >
-        <v-img
-          class="align-end text-white"
-          height="250"
-          :src="imgp.src"
+      <v-img
+        class="align-end text-white"
+        height="250"
+        :src="`http://localhost:8081/images/${imgp.src}`"
           
         >  </v-img>
         <v-spacer>  </v-spacer>

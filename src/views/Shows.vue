@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
 const Movies = ref([]);
 const theatres = ref([]);
 const dates = ref([]);
@@ -21,12 +23,22 @@ const Month_names = [
   "Nov",
   "Dec",
 ];
+const route=useRoute();
+const fetchMovie=async()=>{
+  try{
+    const movieId = route.params.id;    
+    const response= await axios.get(`http://localhost:8081/shows/${movieId}`);
+    Movies.value=response.data;
+    console.log(Movies.value);
+  }
+  catch(err){
+    console.error("error is :" ,err);
+
+  }
+};
 
 onMounted(() => {
-  fetch("http://localhost:3000/Movies")
-    .then((res) => res.json())
-    .then((data) => (Movies.value = data))
-    .catch((e) => console.log(e.message));
+  fetchMovie();
   fetch("http://localhost:3000/theatres")
     .then((res) => res.json())
     .then((data) => (theatres.value = data))
@@ -60,13 +72,11 @@ function generateDates() {
 </script>
 
 <template>
-  <div v-for="movie in Movies" :key="movie">
-    <div v-if="movie.id == $route.params.id">
       <v-row no-gutters>
         <v-col :cols="4">
-          <v-card id="about_movie" style="color: black" color="green">
+          <v-card id="about_movie" style="color: white">
             <v-img
-              :src="movie.src"
+              :src="`http://localhost:8081/images/${Movies.src}`"
               cover
               gradient="to bottom, rgba(0,0,0,.7), rgba(0,0,0,.9)"
             >
@@ -74,20 +84,20 @@ function generateDates() {
                 style="margin-top: 5px; padding-top: 16px; text-wrap: balance"
               >
                 <v-card-title style="text-wrap: balance">
-                  <h2>
-                    {{ movie.title }}
+                  <h2 color="white">
+                    {{ Movies.name }}
                   </h2>
                 </v-card-title>
                 <v-card-subtitle>
                   <v-chip class="ma-1" variant="outlined">{{
-                    movie.rating
+                    Movies.rating
                   }}</v-chip>
                   <v-chip variant="outlined" class="ma-1">
-                    {{ movie.genre }}
+                    {{ Movies.genre }}
                   </v-chip>
                 </v-card-subtitle>
                 <v-card-text>
-                  {{ movie.desc }}
+                  {{ Movies.description }}
                 </v-card-text>
               </div>
             </v-img>
@@ -150,8 +160,6 @@ function generateDates() {
           </v-card>
         </v-col>
       </v-row>
-    </div>
-  </div>
 </template>
 
 <style scoped>

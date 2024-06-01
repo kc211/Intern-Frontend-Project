@@ -18,10 +18,10 @@ const changeTheme = () => {
 <template>
   <v-app>
     <v-toolbar density="default">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    
 
       <v-toolbar-title>
-        <v-btn to="/"> EBS </v-btn>
+        <v-btn to="/"> 75<sub>mm</sub> </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
