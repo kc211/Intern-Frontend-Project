@@ -1,10 +1,19 @@
 <script setup>
+
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+
+
+
 const Movies = ref([]);
 const theatres = ref([]);
-const dates = ref([]);
+const show_timings=ref([]);
+const dates = ref([
+
+]);
+
+//variables for data attribute
 const currentDate = ref(undefined);
 const currentDay = ref(undefined);
 const currentMonth = ref(undefined);
@@ -23,13 +32,25 @@ const Month_names = [
   "Nov",
   "Dec",
 ];
+
+//selected date(default - current date)
+const selectedDate=ref(undefined);
+
 const route=useRoute();
 const fetchMovie=async()=>{
   try{
     const movieId = route.params.id;    
     const response= await axios.get(`http://localhost:8081/shows/${movieId}`);
-    Movies.value=response.data;
-    console.log(Movies.value);
+
+    //data for movies
+    Movies.value=response.data.Movie;
+
+    //data for theatres
+    theatres.value=response.data.Theatre;
+
+    //data for show timings
+    show_timings.value=response.data.Timings;
+  
   }
   catch(err){
     console.error("error is :" ,err);
@@ -39,16 +60,13 @@ const fetchMovie=async()=>{
 
 onMounted(() => {
   fetchMovie();
-  fetch("http://localhost:3000/theatres")
-    .then((res) => res.json())
-    .then((data) => (theatres.value = data))
-    .catch((e) => console.log(e.message));
-
   currentDate.value = new Date().getDate();
   currentDay.value = Day_names[new Date().getDay()];
   currentMonth.value = Month_names[new Date().getMonth()];
 
   generateDates();
+
+  selectedDate.value = currentDate.value;
 });
 
 function generateDates() {
@@ -64,8 +82,8 @@ function generateDates() {
 
     dates.value.push({
       date: date.getDate(),
-      day: Day_names[date.getDay()],
-      month: Month_names[date.getMonth()],
+      // day: Day_names[date.getDay()],
+      // month: Month_names[date.getMonth()],
     });
   }
 }
@@ -110,12 +128,14 @@ function generateDates() {
               <h3 class="mx-1">{{ new Date().getFullYear() }}</h3>
             </v-card-title>
             <v-card-subtitle class="pa-0" opacity="15">
-              <v-slide-group show-arrows class="dates ma-0" size="xs">
+              <v-slide-group v-model="selectedDate" show-arrows class="dates ma-0" size="xs">
                 <v-slide-group-item
                   v-for="(date, index) in dates"
                   :key="index"
                   v-slot="{ isSelected, toggle }"
+                  :value="date.date"
                 >
+                
                   <v-btn
                     :color="isSelected ? 'primary' : undefined"
                     class="ma-1 pa-0"
@@ -135,10 +155,10 @@ function generateDates() {
                 <v-card
                   class="theatre_selection"
                   v-for="theatre in theatres"
-                  :key="theatre"
+                  :key="theatre.id"
                 >
                   <div style="margin-left: 10px">
-                    {{ theatre.theatre_name }}
+                    {{ theatre.name }}
                   </div>
                 </v-card>
               </v-col>
@@ -147,12 +167,12 @@ function generateDates() {
                   <v-btn
                     class="time"
                     variant="outlined"
-                    v-for="time in timing.timings"
-                    :key="time"
+                    v-for="time in show_timings"
+                    :key="time.id"
                     color="green"
                     :to="{ name: 'seats' }"
                   >
-                    {{ time }}
+                    {{ time.show_timing }}
                   </v-btn>
                 </v-card>
               </v-col>

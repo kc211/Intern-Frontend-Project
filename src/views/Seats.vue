@@ -1,11 +1,27 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
-let Movies = ref([]);
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
+
+const route= useRoute();
+
+const Movies = ref([]);
+
+
+const fetchMovie=async()=>{
+  try{
+    const movieId = route.params.id;    
+    const response= await axios.get(`http://localhost:8081/shows/seats/${movieId}`);
+    Movies.value=response.data;
+  }
+  catch(err){
+    console.error("error is :" ,err);
+
+  }
+};
+
 onMounted(() => {
-  fetch("http://localhost:3000/Movies")
-    .then((res) => res.json())
-    .then((data) => (Movies.value = data))
-    .catch((e) => console.log(e.message));
+ fetchMovie();
 });
 
 const ex4 = [
@@ -28,7 +44,6 @@ let total_price = ref(0);
 const selectedTickets = ref([]);
 
 const handleClick = (i) => {
-  // selected.value[i - 1] = !selected.value[i - 1];
   console.log(selected.value[i-1]);
   
   if (selected.value[i - 1]) {
@@ -42,9 +57,7 @@ const handleClick = (i) => {
 </script>
 
 <template>
-  <div v-for="movie in Movies" :key="movie">
-    <div v-if="movie.id == $route.params.id">
-      <h2 class="movie-title mt-2">{{ movie.title }}</h2>
+      <h2 class="movie-title mt-2">{{ Movies.name }}</h2>
       <v-container class="pa-5">
         <v-container class="pa-2">
           <v-row no-gutters class="flex-column">
@@ -100,8 +113,6 @@ const handleClick = (i) => {
           </v-row>
         </v-container>
       </v-container>
-    </div>
-  </div>
 </template>
 <style scoped>
 .indication {
