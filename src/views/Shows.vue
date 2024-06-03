@@ -143,7 +143,7 @@ function generateDates() {
         </v-card-subtitle>
       </v-card>
 
-      <v-card color="white" id="theatres" class="ma-0">
+      <v-card  id="theatres" class="ma-0">
         <v-row class="ma-0">
           <v-col cols="4" class="pa-0">
             <v-card
@@ -209,6 +209,8 @@ function generateDates() {
 
 .v-card {
   border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .dates {
