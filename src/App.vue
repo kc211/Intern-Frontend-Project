@@ -21,7 +21,7 @@ const changeTheme = () => {
     
 
       <v-toolbar-title>
-        <v-btn to="/"> 75<sub>mm</sub> </v-btn>
+        <v-btn to="/" variant="plain":ripple="false"> 75<sub>mm</sub> </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
