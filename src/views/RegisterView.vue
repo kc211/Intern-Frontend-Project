@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import  axios  from "axios";
 const form = ref({
   name: "",
@@ -9,12 +10,19 @@ const form = ref({
   Phone_number: "",
 });
 
+const router= useRouter();
+
 const showPassword = ref(false);
 const showCPassword = ref(false);
 const submit = () => {
   const {name,email,password_,confirm_password,Phone_number}=form.value;
   axios.post('http://localhost:8081/register',{name,email,password_,confirm_password,Phone_number})
-  .then(res=>console.log(res))
+  .then(res=>
+  {
+    console.log(res);
+    router.push("/login");
+  }
+  )
   .catch(err=>console.log(err));
 };
 </script>

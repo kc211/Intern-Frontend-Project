@@ -2,7 +2,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-
+import axios from 'axios'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -16,6 +16,17 @@ const vuetify = createVuetify({
         defaultTheme: 'light'
       }
 })
+
+// Axios interceptor to add JWT token to headers
+axios.interceptors.request.use(config => {
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
 
 const app = createApp(App)
 app.use(router)

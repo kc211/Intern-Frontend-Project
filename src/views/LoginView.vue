@@ -1,16 +1,29 @@
 <script setup>
 import { ref } from "vue";
 import axios from 'axios';
+import { useRoute, useRouter } from "vue-router";
 const form = ref({
   email: "",
   password: "",
   remember_me: false,
 });
+
+const route= useRoute();
+const router= useRouter();
+
 const showPassword = ref(false);
 const submit = () => {
   const {email,password} = form.value;
   axios.post('http://localhost:8081/login',{email,password})
-  .then(res=>console.log(res))
+  .then(res=>
+  {
+    //res.data is the token
+    const token= res.data;
+    localStorage.setItem('jwt',token);
+     // Check if there is a redirect query parameter
+     const redirectTo = route.query.redirect || '/';
+      router.push(redirectTo);
+})
   .catch(err=>console.log(err));
 };
 </script>

@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 import axios from "axios";
 
 const route= useRoute();
-
+const router= useRouter();
 const Movies = ref([]);
 
 
@@ -54,6 +54,12 @@ const handleClick = (i) => {
     selectedTickets.value=selectedTickets.value.filter(item=>item!=i);
   }
 };
+
+
+const handlePayment=(id)=>
+{
+  router.push('/shows/seats/:id/billing/:id');
+}
 </script>
 
 <template>
@@ -108,7 +114,7 @@ const handleClick = (i) => {
 
                   </h3>
                 </span>
-                <v-btn variant="elevated" rounded="xl" elevation="4" color="red"> Pay </v-btn>
+                <v-btn variant="elevated" rounded="xl" elevation="4" color="red" @click="handlePayment(Movies.id)"> Pay </v-btn>
               </v-card>
           </v-row>
         </v-container>
