@@ -11,7 +11,7 @@ const Movies = ref([]);
 const fetchMovie=async()=>{
   try{
     const movieId = route.params.id;    
-    const response= await axios.get(`http://localhost:8081/shows/seats/${movieId}`);
+    const response= await axios.get(`http://localhost:8081/shows/${movieId}/seats/`);
     Movies.value=response.data;
   }
   catch(err){
@@ -58,7 +58,8 @@ const handleClick = (i) => {
 
 const handlePayment=(id)=>
 {
-  router.push('/shows/seats/:id/billing/:id');
+
+  router.push({name:'billing',params:{id}})
 }
 </script>
 

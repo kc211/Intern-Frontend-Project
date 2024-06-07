@@ -18,13 +18,21 @@ const submit = () => {
   .then(res=>
   {
     //res.data is the token
-    const token= res.data;
-    localStorage.setItem('jwt',token);
+    console.log(res.data)
+    const { A_Token, R_Token } = res.data;
+    localStorage.setItem('accessToken',A_Token);
+    localStorage.setItem('refreshToken', R_Token);
+
      // Check if there is a redirect query parameter
-     const redirectTo = route.query.redirect || '/';
+    const redirectTo = route.query.redirect || '/';
+    try {  
       router.push(redirectTo);
+    } catch (error) {
+      console.log("not able to redirect error :",error);
+      
+    }
 })
-  .catch(err=>console.log(err));
+  .catch(err=>console.log("error",err));
 };
 </script>
 
@@ -66,7 +74,6 @@ const submit = () => {
             </v-form>
           </v-card-item>
         </v-card>
-        <!-- </div> -->
       </v-col>
     </v-row>
   </v-container>
