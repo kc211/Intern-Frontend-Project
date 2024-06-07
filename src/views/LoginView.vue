@@ -19,11 +19,10 @@ const submit = () => {
   {
     //res.data is the token
     console.log(res.data)
-    const { A_Token, R_Token } = res.data;
-    localStorage.setItem('accessToken',A_Token);
-    localStorage.setItem('refreshToken', R_Token);
+    const { accessToken, refreshToken } = res.data;
+    localStorage.setItem('accessToken',accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
 
-     // Check if there is a redirect query parameter
     const redirectTo = route.query.redirect || '/';
     try {  
       router.push(redirectTo);

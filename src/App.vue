@@ -14,9 +14,6 @@ const checkAuth = () => {
 
 const  atoken= localStorage.getItem('accessToken');
 const rtoken=localStorage.getItem('refreshToken');
-
-console.log('Atoken',atoken);
-console.log("Rtoken",rtoken);
   isLoggedIn.value = !!atoken;
 };
 

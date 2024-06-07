@@ -1,16 +1,22 @@
 <template>
-    <h2>billing of booking system</h2>
+  <h2>billing of booking system</h2>
 </template>
 
 <script setup>
-import axios from 'axios';
-import { ref,onMounted } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
-const route= useRoute();
-const router= useRouter();
-onMounted(()=>{
-    // const response = axios.get(`http://localhost:8081/billing/${route.params.id}/`)
-    // console.log(response.data);
-    
-})
+import axios from "../config/axiosConfig";
+import { onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+// const router = useRouter();
+
+onMounted(() => {
+  axios.get(`http://localhost:8081/billing/${route.params.id}/`)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.error("There was an error fetching the billing information:", error);
+    });
+});
+
 </script>
