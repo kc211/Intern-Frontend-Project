@@ -1,18 +1,4 @@
-import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-
-
-const logout = () => {
-   localStorage.removeItem('accessToken');
-   localStorage.removeItem('refreshToken');
-};
-
-
-export const handleLogout = () => {
-   const router = useRouter();
-   logout();
-   router.push("/login");
-};
 
 export const refreshToken = async () => {
    const refreshToken = localStorage.getItem('refreshToken');

@@ -1,29 +1,23 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from "vue-router";
-import { ref, onMounted,computed, watch, watchEffect } from "vue";
+import { ref, onMounted,computed, watch, watchEffect, toRefs } from "vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
-import {handleLogout} from "./auth.js"
+import { useAuthStore } from "./store/AuthStore.js";
 
 
 const ctheme = ref(false);
 const theme = useTheme();
-const isLoggedIn = ref(false);
+const authStore=useAuthStore();
 
 
-const checkAuth = () => {
-
-const  atoken= localStorage.getItem('accessToken');
-const rtoken=localStorage.getItem('refreshToken');
-  isLoggedIn.value = !!atoken;
+const handleLogout = async() => {
+ authStore.logout()
 };
-
-onMounted(()=>{
-  checkAuth();
-})
-
-const loggedInStatus= computed(()=>isLoggedIn.value
-);
-
+onMounted(async() => {
+  //  isLoggedIn.value=await authStore.checkLoginStatus();
+  // console.log(isLoggedIn.value);
+  
+});
 
 
 const changeTheme = () => {
@@ -57,7 +51,7 @@ const changeTheme = () => {
       </v-btn>
       <router-link :to="{ name: 'register' }">
         <v-btn
-          v-if="!loggedInStatus"
+          v-if="!authStore.user.e"
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
           size="small"
@@ -67,7 +61,7 @@ const changeTheme = () => {
         </v-btn>
       </router-link>
 
-      <router-link v-if="!loggedInStatus" :to="{ name: 'login' }">
+      <router-link v-if="!authStore.user.e" :to="{ name: 'login' }">
         <v-btn
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
@@ -78,7 +72,8 @@ const changeTheme = () => {
         </v-btn>
       </router-link>
       <!-- <router-link > -->
-        <v-btn v-if="loggedInStatus"
+        <v-btn 
+          v-if="authStore.user.e"
           @click="handleLogout"
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
