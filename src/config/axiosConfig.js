@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { refreshToken } from '@/auth';
 import { useAuthStore } from '@/store/AuthStore';
 
 
@@ -35,6 +34,7 @@ axios.interceptors.response.use(
 
                 }
             } catch (refreshError) {
+                authStore.logout();
                 return Promise.reject("refresherror: ", refreshError);
             }
         }

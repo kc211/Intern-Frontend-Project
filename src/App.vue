@@ -8,17 +8,13 @@ import { useAuthStore } from "./store/AuthStore.js";
 const ctheme = ref(false);
 const theme = useTheme();
 const authStore=useAuthStore();
-
+const router=useRouter();
 
 const handleLogout = async() => {
- authStore.logout()
-};
-onMounted(async() => {
-  //  isLoggedIn.value=await authStore.checkLoginStatus();
-  // console.log(isLoggedIn.value);
-  
-});
+ await authStore.logout();
+ router.push({name:'login'});
 
+};
 
 const changeTheme = () => {
   ctheme.value = !ctheme.value;
@@ -51,7 +47,7 @@ const changeTheme = () => {
       </v-btn>
       <router-link :to="{ name: 'register' }">
         <v-btn
-          v-if="!authStore.user.e"
+          v-if="!authStore.user.email"
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
           size="small"
@@ -61,7 +57,7 @@ const changeTheme = () => {
         </v-btn>
       </router-link>
 
-      <router-link v-if="!authStore.user.e" :to="{ name: 'login' }">
+      <router-link v-if="!authStore.user.email" :to="{ name: 'login' }">
         <v-btn
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
@@ -73,13 +69,12 @@ const changeTheme = () => {
       </router-link>
       <!-- <router-link > -->
         <v-btn 
-          v-if="authStore.user.e"
+          v-if="authStore.user.email"
           @click="handleLogout"
           :variant="ctheme ? 'elevated' : 'outlined'"
           color="red"
           size="small"
           class="mx-2"
-          :to="{name:'login'}"
         >
           LogOut
         </v-btn>

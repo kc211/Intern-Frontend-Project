@@ -6,11 +6,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     const access_Token = ref(localStorage.getItem('accessToken'));
     const refresh_Token = ref(localStorage.getItem('refreshToken'));
-
-    const user = ref({});
-    if (access_Token) {
-        user.value = JSON.parse(localStorage.getItem('user'))
-    }
+    const user = ref(JSON.parse(localStorage.getItem('user') || '{}'));
 
 
     //Login
@@ -23,9 +19,11 @@ export const useAuthStore = defineStore("auth", () => {
             const { accessToken, refreshToken } = response.data;
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
+            access_Token.value=accessToken;
+            refresh_Token.value=refreshToken;
             console.log("User logged In");
             user.value = {
-                e: email,
+                email: email,
             }
             localStorage.setItem('user', JSON.stringify(user.value))
             return bool;
@@ -41,6 +39,8 @@ export const useAuthStore = defineStore("auth", () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
+        access_Token.value=undefined;
+        refresh_Token.value=undefined;
         console.log(" User logged Out");
         user.value = {};
     }
