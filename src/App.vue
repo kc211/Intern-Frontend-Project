@@ -79,6 +79,7 @@ const changeTheme = () => {
           color="red"
           size="small"
           class="mx-2"
+          :to="{name:'login'}"
         >
           LogOut
         </v-btn>

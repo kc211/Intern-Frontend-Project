@@ -123,6 +123,7 @@ function generateDates() {
             show-arrows
             class="dates ma-0"
             size="xs"
+            
           >
             <v-slide-group-item
               v-for="(date, index) in dates"
@@ -135,6 +136,7 @@ function generateDates() {
                 class="ma-1 pa-0"
                 @click="toggle"
                 min-width="40px"
+                style="color:black"
               >
                 {{ date.date }}
               </v-btn>

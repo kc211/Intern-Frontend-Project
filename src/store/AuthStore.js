@@ -4,10 +4,16 @@ import axios from "axios";
 
 export const useAuthStore = defineStore("auth", () => {
 
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-    const user = ref({});
+    const access_Token = ref(localStorage.getItem('accessToken'));
+    const refresh_Token = ref(localStorage.getItem('refreshToken'));
 
+    const user = ref({});
+    if (access_Token) {
+        user.value = JSON.parse(localStorage.getItem('user'))
+    }
+
+
+    //Login
     const loginUser = async (email, password) => {
         try {
             const response = await axios.post('http://localhost:8081/login', { email, password })
@@ -21,6 +27,7 @@ export const useAuthStore = defineStore("auth", () => {
             user.value = {
                 e: email,
             }
+            localStorage.setItem('user', JSON.stringify(user.value))
             return bool;
         }
         catch {
@@ -28,15 +35,40 @@ export const useAuthStore = defineStore("auth", () => {
         }
     }
 
-        const logout = async () => {
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            console.log(" User logged Out");
-            user.value = {};
-        }
-        return {
-            loginUser,
-            logout,
-            user
-        }
-    });
+
+    //LogOut
+    const logout = async () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        console.log(" User logged Out");
+        user.value = {};
+    }
+
+    //refreshToken Generation
+     const GenerateNewAccessToken = async () => {
+        const refreshToken = localStorage.getItem('refreshToken');
+        console.log("from refreshToken function", refreshToken);
+        if (!refreshToken) return Promise.reject('No refresh token available');
+        return await axios.post("http://localhost:8081/token", { refreshToken })
+            .then(res => {
+                console.log("hello", res.data);
+                const { accessToken } = res.data;
+                localStorage.setItem('accessToken', accessToken);
+                access_Token.value=accessToken;
+                return accessToken;
+            })
+            .catch((err) => {
+                console.error("failed to refresh token", err);
+                return Promise.reject(err); // Ensure promise chain is not broken
+            })
+    };
+    return {
+        access_Token,
+        refresh_Token,
+        user,
+        loginUser,
+        logout,
+        GenerateNewAccessToken
+    }
+});

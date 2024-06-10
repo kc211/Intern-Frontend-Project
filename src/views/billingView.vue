@@ -12,7 +12,7 @@ const route = useRoute();
 onMounted(() => {
   axios.get(`http://localhost:8081/billing/${route.params.id}/`)
     .then(response => {
-      console.log(response);
+      
     })
     .catch(error => {
       console.error("There was an error fetching the billing information:", error);
