@@ -1,6 +1,8 @@
 <template>
-  <h2>billing of booking system</h2>
-  <h3>User details: {{ user.email }}</h3>
+  <h2>Theatre name</h2>
+  <h3>Movie name and rating</h3>
+  <h3>Show Timing and Seats</h3>
+  <h3>User details {{ user.email }}</h3>
 </template>
 
 <script setup>

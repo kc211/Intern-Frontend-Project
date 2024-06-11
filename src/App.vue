@@ -1,35 +1,32 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from "vue-router";
-import { ref, onMounted,computed, watch, watchEffect, toRefs } from "vue";
+import { ref, onMounted, computed, watch, watchEffect, toRefs } from "vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
 import { useAuthStore } from "./store/AuthStore.js";
 
-
 const ctheme = ref(false);
 const theme = useTheme();
-const authStore=useAuthStore();
-const router=useRouter();
+const authStore = useAuthStore();
+const router = useRouter();
 
-const handleLogout = async() => {
- await authStore.logout();
- router.push({name:'login'});
-
+const handleLogout = async () => {
+  await authStore.logout();
+  router.push({ name: "login" });
 };
 
 const changeTheme = () => {
   ctheme.value = !ctheme.value;
   theme.global.name.value = ctheme.value ? "dark" : "light";
 };
-
-
 </script>
 
 <template>
   <v-app>
     <v-toolbar density="default">
       <v-toolbar-title>
-          <v-btn :to="{path:'/'}" variant="plain" :ripple="false"> 75<sub>mm</sub> </v-btn>
-
+        <v-btn :to="{ path: '/' }" variant="plain" :ripple="false">
+          75<sub>mm</sub>
+        </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -68,17 +65,34 @@ const changeTheme = () => {
         </v-btn>
       </router-link>
       <!-- <router-link > -->
-        <v-btn 
-          v-if="authStore.user.email"
-          @click="handleLogout"
-          :variant="ctheme ? 'elevated' : 'outlined'"
-          color="red"
-          size="small"
-          class="mx-2"
-        >
-          LogOut
-        </v-btn>
-      <!-- </router-link> -->
+
+      <v-menu v-if="authStore.user.email">
+        <template v-slot:activator="{ props }">
+          <v-chip
+            prepend-icon="mdi-account-circle-outline"
+            v-bind="props"
+            class="ma-3"
+            color="red"
+            :variant="ctheme ? 'elevated' : 'outlined'"
+          >
+            {{ authStore.user.email }}
+          </v-chip>
+        </template>
+
+        <v-list rounded="pill" height="75px" style="color: red;">
+          <v-list-item append-icon="mdi-logout"
+              v-if="authStore.user.email"
+              @click="handleLogout"
+              :variant="ctheme ? 'elevated' : 'outlined'"
+              color="red"
+              height="20px"
+              class="my-1 mx-4"
+              rounded="pill" >
+
+              LogOut
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-main>
       <RouterView />

@@ -23,7 +23,10 @@ onMounted(()=>{
 
 const router= useRouter();
 const handleBookingTickets=(id)=>{
-  router.push({name:'shows',params:{id}})
+  const date=`${new Date().getFullYear()}${
+    new Date().getMonth() + 1
+  }${new Date().getDate()}`;
+  router.push({name:'shows',params:{id,date}})
   }
 
 </script>

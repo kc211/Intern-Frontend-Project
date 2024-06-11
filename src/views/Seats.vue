@@ -11,8 +11,10 @@ const Movies = ref([]);
 const fetchMovie=async()=>{
   try{
     const movieId = route.params.id;    
+    const date= route.params.id;
     const response= await axios.get(`http://localhost:8081/shows/${movieId}/seats/`);
-    Movies.value=response.data;
+    Movies.value=response.data.Movie;
+    console.log(Movies.value);
   }
   catch(err){
     console.error("error is :" ,err);
@@ -59,6 +61,7 @@ const handleClick = (i) => {
 const handlePayment=(id)=>
 {
 
+
   router.push({name:'billing',params:{id}})
 }
 </script>
@@ -90,7 +93,7 @@ const handlePayment=(id)=>
 
                       v-model="selected[i - 1]"
                       hide-details
-                      :value="177"
+                      :value="i"
                       @change="handleClick(i)"
                       :color="selected[i - 1] ? 'blue' : undefined"
                     ></v-checkbox>

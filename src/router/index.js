@@ -33,10 +33,15 @@ const router = createRouter({
       component:RegisterView
     },
     {
-      path:'/shows/:id/',
+      path:'/shows/:id/:date/',
       name:'shows',
       component:Shows
     },
+    // {
+    //   path:'/shows/:id/:date/:theatre_name/:show_timing/seats/',
+    //   name:'seats',
+    //   component:Seats
+    // },
     {
       path:'/shows/:id/seats/',
       name:'seats',
