@@ -11,10 +11,12 @@ const Movies = ref([]);
 const fetchMovie=async()=>{
   try{
     const movieId = route.params.id;    
-    const date= route.params.id;
-    const response= await axios.get(`http://localhost:8081/shows/${movieId}/seats/`);
-    Movies.value=response.data.Movie;
-    console.log(Movies.value);
+    const date= route.params.date;
+    const theatre_name=route.params.theatre_name;
+    const timing=route.params.show_time
+    const response= await axios.get(`http://localhost:8081/shows/${movieId}/${theatre_name}/${timing}/seats/${date}/`);
+    Movies.value=response.data;
+    console.log(date);
   }
   catch(err){
     console.error("error is :" ,err);
@@ -60,8 +62,6 @@ const handleClick = (i) => {
 
 const handlePayment=(id)=>
 {
-
-
   router.push({name:'billing',params:{id}})
 }
 </script>

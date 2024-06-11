@@ -37,13 +37,8 @@ const router = createRouter({
       name:'shows',
       component:Shows
     },
-    // {
-    //   path:'/shows/:id/:date/:theatre_name/:show_timing/seats/',
-    //   name:'seats',
-    //   component:Seats
-    // },
     {
-      path:'/shows/:id/seats/',
+      path:'/shows/:id/:theatre_name/:show_time/seats/:date/',
       name:'seats',
       component:Seats
     },
