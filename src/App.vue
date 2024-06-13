@@ -71,27 +71,28 @@ const changeTheme = () => {
           <v-chip
             prepend-icon="mdi-account-circle-outline"
             v-bind="props"
-            class="ma-3"
+            class="ma-4"
             color="red"
             :variant="ctheme ? 'elevated' : 'outlined'"
           >
             {{ authStore.user.email }}
           </v-chip>
         </template>
-
-        <v-list rounded="pill" height="75px" style="color: red;">
-          <v-list-item append-icon="mdi-logout"
-              v-if="authStore.user.email"
-              @click="handleLogout"
-              :variant="ctheme ? 'elevated' : 'outlined'"
-              color="red"
-              height="20px"
-              class="my-1 mx-4"
-              rounded="pill" >
-
-              LogOut
+          <v-list-item class="pt-0 mt-0">
+            <v-btn
+            append-icon="mdi-logout"
+            v-if="authStore.user.email"
+            @click="handleLogout"
+            :variant="ctheme ? 'elevated' : 'outlined'"
+            color="red"
+            height="30px"
+            style="background-color: white"
+            class="mx-10 pt-0"
+            rounded="pill"
+          >
+            LogOut
+          </v-btn>
           </v-list-item>
-        </v-list>
       </v-menu>
     </v-toolbar>
     <v-main>

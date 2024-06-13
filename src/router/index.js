@@ -43,7 +43,7 @@ const router = createRouter({
       component:Seats
     },
     {
-      path:'/billing/:id',
+      path:'/billing/:id/:theatre_name/:show_time/seats/:date/',
       name:'billing',
       component:BillingView,
       meta: { requiresAuth: true } //protected route

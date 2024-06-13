@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted} from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
@@ -178,7 +178,7 @@ const handleBooking = (timing, t_name) => {
                 class="ma-1 pa-0"
                 @click="toggle(), handleDate(date.date)"
                 min-width="40px"
-                style="color: black"
+                style="color: black;"              
               >
                 {{ date.date }}
               </v-btn>
