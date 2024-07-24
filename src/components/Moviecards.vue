@@ -3,15 +3,12 @@
 import { ref, onMounted,} from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-const model = ref(undefined);
 const Movies=ref([])
 
 const fetchMovies = async () => {
   try {
     const response = await axios.get("http://localhost:8081/");
-    Movies.value = response.data;
-    console.log(response.data);
-    
+    Movies.value = response.data;    
   } catch (error) {
     console.error("Failed to fetch movies:", error);
   }
@@ -23,7 +20,10 @@ onMounted(()=>{
 
 const router= useRouter();
 const handleBookingTickets=(id)=>{
-  router.push({name:'shows',params:{id}})
+  const date=`${new Date().getFullYear()}${
+    new Date().getMonth() + 1
+  }${new Date().getDate()}`;
+  router.push({name:'shows',params:{id,date}})
   }
 
 </script>

@@ -15,7 +15,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
+      path: '/about/',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -23,27 +23,27 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path:'/login',
+      path:'/login/',
       name:'login',
       component:LoginView
     },
     {
-      path:'/register',
+      path:'/register/',
       name:'register',
       component:RegisterView
     },
     {
-      path:'/shows/:id',
+      path:'/shows/:id/:date/',
       name:'shows',
       component:Shows
     },
     {
-      path:'/shows/seats/:id',
+      path:'/shows/:id/:theatre_name/:show_time/seats/:date/',
       name:'seats',
       component:Seats
     },
     {
-      path:'/shows/seats/:id/billing/:id',
+      path:'/billing/:id/:theatre_name/:show_time/seats/:date/',
       name:'billing',
       component:BillingView,
       meta: { requiresAuth: true } //protected route
@@ -51,7 +51,7 @@ const router = createRouter({
   ]
 });
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('jwt'); // Check if JWT token exists in local storage
+  const isAuthenticated = localStorage.getItem('accessToken'); // Check if JWT token exists in local storage
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     next({
       path: '/login',

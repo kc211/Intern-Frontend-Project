@@ -1,30 +1,32 @@
 <script setup>
 import { ref } from "vue";
-import axios from 'axios';
+import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
+import {useAuthStore} from "@/store/AuthStore.js";
+
 const form = ref({
   email: "",
   password: "",
   remember_me: false,
 });
 
-const route= useRoute();
-const router= useRouter();
+const authStore = useAuthStore();
+const route = useRoute();
+const router = useRouter();
 
 const showPassword = ref(false);
-const submit = () => {
-  const {email,password} = form.value;
-  axios.post('http://localhost:8081/login',{email,password})
-  .then(res=>
-  {
-    //res.data is the token
-    const token= res.data;
-    localStorage.setItem('jwt',token);
-     // Check if there is a redirect query parameter
-     const redirectTo = route.query.redirect || '/';
+const submit = async () => {
+  const { email, password } = form.value;
+  const val = await authStore.loginUser(email, password);
+  console.log(val)
+  if (val) {
+    const redirectTo = route.query.redirect || "/";
+    try {
       router.push(redirectTo);
-})
-  .catch(err=>console.log(err));
+    } catch (error) {
+      console.log("not able to redirect error :", error);
+    }
+  }
 };
 </script>
 
@@ -66,7 +68,6 @@ const submit = () => {
             </v-form>
           </v-card-item>
         </v-card>
-        <!-- </div> -->
       </v-col>
     </v-row>
   </v-container>

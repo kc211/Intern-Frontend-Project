@@ -1,34 +1,26 @@
-
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import axios from 'axios'
 import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
+import { createPinia } from 'pinia'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import 'vuetify/styles'
+import App from './App.vue'
+import router from './router'
+
 
 const vuetify = createVuetify({
-    components,
-    directives,
-    theme: {
-        defaultTheme: 'light'
-      }
+  components,
+  directives,
+  theme: {
+    defaultTheme: 'light'
+  }
 })
 
-// Axios interceptor to add JWT token to headers
-axios.interceptors.request.use(config => {
-  const token = localStorage.getItem('jwt');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
+const pinia= createPinia();
 
 const app = createApp(App)
 app.use(router)
 app.use(vuetify)
+app.use(pinia)
 app.mount('#app')
