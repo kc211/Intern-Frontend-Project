@@ -77,15 +77,12 @@ const fetchMovie = async () => {
 
     //data for movies
     Movies.value = response.data.Movie;
-    console.log(Movies.value);
 
     //data for theatres
     theatres.value = response.data.Theatre;
-    console.log(theatres.value);
 
     //data for show timings
     show_timings.value = response.data.Timings;
-    console.log(show_timings.value);
   } catch (err) {
     console.error("error is :", err);
   }
