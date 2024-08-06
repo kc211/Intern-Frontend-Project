@@ -10,6 +10,7 @@ const fetchMovies = async () => {
     const response = await axios.get("http://localhost:8081/");
     Movies.value = response.data;    
   } catch (error) {
+    console.log(error)
     console.error("Failed to fetch movies:", error);
   }
 };
